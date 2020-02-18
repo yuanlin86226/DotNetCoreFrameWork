@@ -22,6 +22,7 @@ using Services;
 using Services.IServices;
 using Swashbuckle.AspNetCore.Swagger;
 
+
 namespace api
 {
     public class Startup
@@ -67,10 +68,14 @@ namespace api
             );
 
             //注入SQL Server連線
-            services.AddEntityFrameworkSqlServer().AddDbContext<CustomContext>(options =>
+            services.AddDbContext<CustomContext>(optionsBuilder =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            }, ServiceLifetime.Scoped);
+                optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            // services.AddEntityFrameworkSqlServer().AddDbContext<CustomContext>(options =>
+            // {
+            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            // }, ServiceLifetime.Scoped);
             // services.AddTransient<CustomContext>();
 
 
