@@ -172,7 +172,7 @@ namespace api
             //建立資料庫連線
             dbContext.Database.EnsureCreated();
             app.UseHttpsRedirection();
-            app.UseCustomMiddleware(0);
+            // app.UseCustomMiddleware(0);
             app.UseMvc();
             app.UseMvcWithDefaultRoute();
         }
