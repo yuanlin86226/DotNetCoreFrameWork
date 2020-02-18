@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace api.Migrations
 {
     [DbContext(typeof(CustomContext))]
-    [Migration("20200218023245_IronmanMigration")]
-    partial class IronmanMigration
+    [Migration("20200218082506_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,38 @@ namespace api.Migrations
                     b.HasIndex("update_user_id");
 
                     b.ToTable("actions");
+                });
+
+            modelBuilder.Entity("Models.CheckinLogsModels", b =>
+                {
+                    b.Property<int>("checkin_log_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("create_time");
+
+                    b.Property<string>("create_user_id")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("ip");
+
+                    b.Property<DateTime>("time");
+
+                    b.Property<DateTime>("update_time");
+
+                    b.Property<string>("update_user_id")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("user_id");
+
+                    b.HasKey("checkin_log_id");
+
+                    b.HasIndex("create_user_id");
+
+                    b.HasIndex("update_user_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("checkin_logs");
                 });
 
             modelBuilder.Entity("Models.FunctionNamesModels", b =>
@@ -220,6 +252,21 @@ namespace api.Migrations
                     b.HasOne("Models.UsersModels", "update_user")
                         .WithMany("ActionsUpdateUser")
                         .HasForeignKey("update_user_id");
+                });
+
+            modelBuilder.Entity("Models.CheckinLogsModels", b =>
+                {
+                    b.HasOne("Models.UsersModels", "create_user")
+                        .WithMany("CheckinLogsCreateUser")
+                        .HasForeignKey("create_user_id");
+
+                    b.HasOne("Models.UsersModels", "update_user")
+                        .WithMany("CheckinLogsUpdateUser")
+                        .HasForeignKey("update_user_id");
+
+                    b.HasOne("Models.UsersModels", "users")
+                        .WithMany("CheckinLogs")
+                        .HasForeignKey("user_id");
                 });
 
             modelBuilder.Entity("Models.FunctionNamesModels", b =>

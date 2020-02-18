@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace api.Migrations
 {
-    public partial class IronmanMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,6 +100,43 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "checkin_logs",
+                columns: table => new
+                {
+                    create_user_id = table.Column<string>(maxLength: 36, nullable: true),
+                    update_user_id = table.Column<string>(maxLength: 36, nullable: true),
+                    create_time = table.Column<DateTime>(nullable: false),
+                    update_time = table.Column<DateTime>(nullable: false),
+                    checkin_log_id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    user_id = table.Column<string>(nullable: true),
+                    time = table.Column<DateTime>(nullable: false),
+                    ip = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_checkin_logs", x => x.checkin_log_id);
+                    table.ForeignKey(
+                        name: "FK_checkin_logs_users_create_user_id",
+                        column: x => x.create_user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_checkin_logs_users_update_user_id",
+                        column: x => x.update_user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_checkin_logs_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "function_names",
                 columns: table => new
                 {
@@ -167,6 +204,21 @@ namespace api.Migrations
                 name: "IX_actions_update_user_id",
                 table: "actions",
                 column: "update_user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_checkin_logs_create_user_id",
+                table: "checkin_logs",
+                column: "create_user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_checkin_logs_update_user_id",
+                table: "checkin_logs",
+                column: "update_user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_checkin_logs_user_id",
+                table: "checkin_logs",
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_function_names_create_user_id",
@@ -313,6 +365,9 @@ namespace api.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_roles_users_update_user_id",
                 table: "roles");
+
+            migrationBuilder.DropTable(
+                name: "checkin_logs");
 
             migrationBuilder.DropTable(
                 name: "role_permissions");
