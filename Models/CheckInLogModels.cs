@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
-    [Table("checkin_log")]
-    public class CheckInLogModels : BaseInformationShare //打卡紀錄
+    [Table("checkin_logs")]
+    public class CheckinLogsModels : BaseInformationShare //打卡紀錄
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int checkin_log_id { get; set; }
@@ -22,10 +22,10 @@ namespace Models
         [ForeignKey("user_id")]
         public virtual UsersModels users { get; set; }
 
-        [ForeignKey("create_user_id"), InverseProperty("RolePermissionsCreateUser")]
+        [ForeignKey("create_user_id"), InverseProperty("CheckinLogsCreateUser")]
         public virtual UsersModels create_user { get; set; }
 
-        [ForeignKey("update_user_id"), InverseProperty("RolePermissionsUpdateUser")]
+        [ForeignKey("update_user_id"), InverseProperty("CheckinLogsUpdateUser")]
         public virtual UsersModels update_user { get; set; }
 
     }

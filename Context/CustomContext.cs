@@ -17,6 +17,7 @@ namespace Context
         public DbSet<FunctionNamesModels> function_names { get; set; } //功能名稱
         public DbSet<ActionsModels> actions { get; set; } //動作
         public DbSet<RolePermissionsModels> role_permissions { get; set; } //角色的權限
+        public DbSet<CheckinLogsModels> checkin_logs { get; set; } //角色的權限
         #endregion
 
         #region 建立資料關聯
@@ -28,6 +29,7 @@ namespace Context
             modelBuilder.ApplyConfiguration(new RolePermissionsEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RolesEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UsersEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CheckinLogsEntityConfiguration());
         }
         #endregion
     }
