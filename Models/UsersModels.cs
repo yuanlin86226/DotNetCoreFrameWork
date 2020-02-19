@@ -45,13 +45,12 @@ namespace Models
         #region 外來鍵
         [ForeignKey("role_id")]
         public virtual RolesModels roles { get; set; }
-        public virtual ICollection<CheckinLogsModels> CheckinLogs { get; set; }
 
         #endregion
 
         #region 外部關聯
-       public virtual ICollection<ActionsModels> ActionsCreateUser { get; set; }
-       public virtual ICollection<ActionsModels> ActionsUpdateUser { get; set; }
+        public virtual ICollection<ActionsModels> ActionsCreateUser { get; set; }
+        public virtual ICollection<ActionsModels> ActionsUpdateUser { get; set; }
         public virtual ICollection<FunctionNamesModels> FunctionNamesCreateUser { get; set; }
         public virtual ICollection<FunctionNamesModels> FunctionNamesUpdateUser { get; set; }
         public virtual ICollection<PermissionsModels> PermissionsCreateUser { get; set; }
@@ -62,6 +61,7 @@ namespace Models
         public virtual ICollection<RolesModels> RolesUpdateUser { get; set; }
         public virtual ICollection<CheckinLogsModels> CheckinLogsCreateUser { get; set; }
         public virtual ICollection<CheckinLogsModels> CheckinLogsUpdateUser { get; set; }
+        public virtual ICollection<CheckinLogsModels> CheckinLogs { get; set; }
         #endregion
     }
 }

@@ -39,6 +39,11 @@ namespace Resources.Mapping
             CreateMap<InsertUsersResource, UsersModels>();
             CreateMap<UpdateUsersResource, UsersModels>();
             #endregion
+
+            #region CheckinLogs
+            CreateMap<CheckinLogsModels, CheckinLogsResource>();
+            CreateMap<InsertCheckinLogsResource, CheckinLogsModels>();
+            #endregion
         }
     }
 }
