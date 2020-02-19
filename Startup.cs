@@ -80,11 +80,19 @@ namespace api
 
 
             #region  注入Services的DI
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRolesService,RolesService>();
+            services.AddScoped<IFunctionNamesService,FunctionNamesService>();
+            services.AddScoped<IActionsService,ActionsService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICheckinLogsService, CheckinLogsService>();
             #endregion
 
             #region 注入Repositories的DI
+            services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IRolePermissionsRepository, RolePermissionsRepository>();
+            services.AddScoped<IFunctionNamesRepository, FunctionNamesRepository>();
+            services.AddScoped<IActionsRepository, ActionsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<ICheckinLogsRepository, CheckinLogsRepository>();
             #endregion
@@ -174,7 +182,7 @@ namespace api
             //建立資料庫連線
             dbContext.Database.EnsureCreated();
             app.UseHttpsRedirection();
-            // app.UseCustomMiddleware(0);
+            app.UseCustomMiddleware(0);
             app.UseMvc();
             app.UseMvcWithDefaultRoute();
         }

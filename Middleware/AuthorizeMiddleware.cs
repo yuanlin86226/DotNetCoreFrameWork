@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
@@ -15,11 +16,15 @@ namespace Middleware
     public class AuthorizeMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IConfiguration _config;
 
-        public AuthorizeMiddleware(RequestDelegate next)
+        public AuthorizeMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             this._next = next ??
                 throw new ArgumentNullException(nameof(next));
+
+            this._config = configuration ??
+                throw new ArgumentNullException(nameof(configuration));
         }
 
         //  {
@@ -48,7 +53,7 @@ namespace Middleware
             string Token = Request.Headers["Authorization"];
 
             //加密金鑰
-            string secret = "ganNiMaderSevenOclockWakeUp";
+            string secret = this._config["Jwt:Key"];
             var hs256 = new HMACSHA256(Encoding.ASCII.GetBytes(secret));
 
             //判斷路徑是否需要做Token驗證
@@ -88,13 +93,13 @@ namespace Middleware
                                 {
                                     await BadResponse(Response);
                                 }
-                                else
-                                {
-                                    // string Role = PayLoad["Role"]..ToString();
-                                    //驗證角色權限
-                                    if (!await RolePermissionsChecked(PayLoad["Role"].ToString(), Path, URLMethod, DBcontext))
-                                        await BadResponse(Response);
-                                }
+                                // else
+                                // {
+                                //     // string Role = PayLoad["Role"]..ToString();
+                                //     //驗證角色權限
+                                //     if (!await RolePermissionsChecked(PayLoad["Role"].ToString(), Path, URLMethod, DBcontext))
+                                //         await BadResponse(Response);
+                                // }
                             }
                         }
                     }
