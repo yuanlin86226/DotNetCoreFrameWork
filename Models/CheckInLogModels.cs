@@ -13,9 +13,6 @@ namespace Models
 
         public string user_id { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime time { get; set; }
-
         public string ip { get; set; }
 
 

@@ -81,10 +81,12 @@ namespace api
 
             #region  注入Services的DI
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ICheckinLogsService, CheckinLogsService>();
             #endregion
 
             #region 注入Repositories的DI
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<ICheckinLogsRepository, CheckinLogsRepository>();
             #endregion
 
             //加入MVC架構

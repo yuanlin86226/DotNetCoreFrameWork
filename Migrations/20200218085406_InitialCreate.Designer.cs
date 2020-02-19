@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace api.Migrations
 {
     [DbContext(typeof(CustomContext))]
-    [Migration("20200218082506_InitialCreate")]
+    [Migration("20200218085406_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,8 +56,6 @@ namespace api.Migrations
                         .HasMaxLength(36);
 
                     b.Property<string>("ip");
-
-                    b.Property<DateTime>("time");
 
                     b.Property<DateTime>("update_time");
 

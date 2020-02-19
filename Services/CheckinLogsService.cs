@@ -14,13 +14,13 @@ namespace Services
 
     public class CheckinLogsService : ICheckinLogsService
     {
-        private readonly ICheckLogsRepository _CheckLogsRepository;
+        private readonly ICheckinLogsRepository _CheckinLogsRepository;
         private readonly IMapper _mapper;
 
-        public CheckinLogsService(ICheckLogsRepository CheckLogsRepository, IMapper mapper)
+        public CheckinLogsService(ICheckinLogsRepository CheckinLogsRepository, IMapper mapper)
         {
-            this._CheckLogsRepository = CheckLogsRepository ??
-                throw new ArgumentNullException(nameof(CheckLogsRepository));
+            this._CheckinLogsRepository = CheckinLogsRepository ??
+                throw new ArgumentNullException(nameof(CheckinLogsRepository));
 
             this._mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
@@ -31,7 +31,7 @@ namespace Services
             try
             {
                 var CheckinLogs = _mapper.Map<InsertCheckinLogsResource, CheckinLogsModels>(resource);
-                await _CheckLogsRepository.CreateAsync(CheckinLogs);
+                await _CheckinLogsRepository.CreateAsync(CheckinLogs);
                 return new SaveCheckinLogsResponse(CheckinLogs);
             }
             catch (Exception ex)
@@ -41,10 +41,10 @@ namespace Services
             }
         }
 
-        public async Task<IEnumerable<ActionsResource>> ReadAllAsync(string action)
+        public async Task<IEnumerable<CheckinLogsResource>> ReadAllAsync(string log)
         {
-            var Actions = await _CheckLogsRepository.ReadAllAsync(action);
-            var resources = _mapper.Map<IEnumerable<ActionsModels>, IEnumerable<ActionsResource>>(Actions);
+            var CheckinLogs = await _CheckinLogsRepository.ReadAllAsync(log);
+            var resources = _mapper.Map<IEnumerable<CheckinLogsModels>, IEnumerable<CheckinLogsResource>>(CheckinLogs);
             return resources;
         }
     }

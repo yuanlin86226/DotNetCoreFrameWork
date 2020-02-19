@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Models;
 
 namespace Repositories.IRepositories {
-    public interface ICheckLogsRepository {
+    public interface ICheckinLogsRepository {
         Task CreateAsync (CheckinLogsModels CheckinLogs);
-        Task<IEnumerable<ActionsModels>> ReadAllAsync (string actions);
+        Task<IEnumerable<CheckinLogsModels>> ReadAllAsync (string log);
 
     }
 }

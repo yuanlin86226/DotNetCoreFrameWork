@@ -55,8 +55,6 @@ namespace api.Migrations
 
                     b.Property<string>("ip");
 
-                    b.Property<DateTime>("time");
-
                     b.Property<DateTime>("update_time");
 
                     b.Property<string>("update_user_id")

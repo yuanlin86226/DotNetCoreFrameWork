@@ -110,7 +110,6 @@ namespace api.Migrations
                     checkin_log_id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: true),
-                    time = table.Column<DateTime>(nullable: false),
                     ip = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

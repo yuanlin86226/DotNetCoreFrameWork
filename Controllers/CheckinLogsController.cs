@@ -49,7 +49,7 @@ namespace Controllers
         {
             var result = await _CheckinLogsService.CreateAsync(resource);
             if (!result.Success)
-                return BadRequest(result.Message);
+               return BadRequest(result.Message);
 
 
             return Ok(new { msg = "新增成功" });
@@ -72,17 +72,17 @@ namespace Controllers
         ///     }
         ///
         /// </remarks>
-        /// <param name="action"></param> 
+        /// <param name="log"></param> 
         /// <response code="200">Returns the Actions</response>
         /// <response code="404">If the Actions is null</response> 
         //api/Actions
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ActionsResource>), 200)]
-        [ProducesResponseType(typeof(IEnumerable<ActionsResource>), 404)]
-        public async Task<ActionResult<ActionsResource>> ReadAllAsync(string action)
+        [ProducesResponseType(typeof(IEnumerable<CheckinLogsResource>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<CheckinLogsResource>), 404)]
+        public async Task<ActionResult<CheckinLogsResource>> ReadAllAsync(string log)
         {
-            var Actions = await _CheckinLogsService.ReadAllAsync(action);
-            return Ok(Actions);
+            var CheckinLogs = await _CheckinLogsService.ReadAllAsync(log);
+            return Ok(CheckinLogs);
         }
     }
 }

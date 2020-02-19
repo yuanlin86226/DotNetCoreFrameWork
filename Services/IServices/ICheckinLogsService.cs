@@ -11,6 +11,6 @@ namespace Services.IServices
     public interface ICheckinLogsService
     {
         Task<SaveCheckinLogsResponse> CreateAsync(InsertCheckinLogsResource resource);
-        Task<IEnumerable<ActionsResource>> ReadAllAsync(string action);
+        Task<IEnumerable<CheckinLogsResource>> ReadAllAsync(string log);
     }
 }
