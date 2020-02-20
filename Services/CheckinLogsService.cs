@@ -12,6 +12,7 @@ using Services.IServices;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace Services
 {
@@ -21,8 +22,9 @@ namespace Services
         private readonly ICheckinLogsRepository _CheckinLogsRepository;
         private readonly IMapper _mapper;
         private IHttpContextAccessor _accessor;
+        private readonly IConfiguration _config;
 
-        public CheckinLogsService(ICheckinLogsRepository CheckinLogsRepository, IMapper mapper, IHttpContextAccessor accessor)
+        public CheckinLogsService(ICheckinLogsRepository CheckinLogsRepository, IMapper mapper, IHttpContextAccessor accessor, IConfiguration configuration)
         {
             this._CheckinLogsRepository = CheckinLogsRepository ??
                 throw new ArgumentNullException(nameof(CheckinLogsRepository));
@@ -32,6 +34,9 @@ namespace Services
 
             this._accessor = accessor ??
                 throw new ArgumentNullException(nameof(accessor));
+
+            this._config = configuration ??
+                throw new ArgumentNullException(nameof(configuration));
         }
 
         public async Task<SaveCheckinLogsResponse> CreateAsync()
@@ -49,19 +54,20 @@ namespace Services
                 CheckinLogs.user_id = user.user_id;
 
                 // Get Client IP
-                // string IP4Address = String.Empty;
-                // foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
-                // {
-                //     if (IPA.AddressFamily.ToString() == "InterNetwork")
-                //     {
-                //         IP4Address = IPA.ToString();
-                //         break;
-                //     }
-                // }
-                // CheckinLogs.ip = IP4Address;
-
                 WebClient webClient = new WebClient();
-                CheckinLogs.ip = webClient.DownloadString("https://api.ipify.org");
+                var user_ip = webClient.DownloadString("https://api.ipify.org");
+
+                bool in_company = user_ip.Contains(this._config["IP"]);
+                if (in_company) {
+                    int index = user_ip.IndexOf(this._config["IP"]);
+                    if (index == 0) {
+                        CheckinLogs.ip = user_ip;
+                    }
+                }
+
+                if (CheckinLogs.ip == null) {
+                    return new SaveCheckinLogsResponse("IP is invalid");
+                }
 
                 await _CheckinLogsRepository.CreateAsync(CheckinLogs);
                 return new SaveCheckinLogsResponse(CheckinLogs);
