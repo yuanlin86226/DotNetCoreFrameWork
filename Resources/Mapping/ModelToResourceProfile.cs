@@ -42,7 +42,6 @@ namespace Resources.Mapping
 
             #region CheckinLogs
             CreateMap<CheckinLogsModels, CheckinLogsResource>();
-            CreateMap<InsertCheckinLogsResource, CheckinLogsModels>();
             #endregion
         }
     }

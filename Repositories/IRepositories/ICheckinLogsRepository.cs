@@ -7,6 +7,7 @@ namespace Repositories.IRepositories {
     public interface ICheckinLogsRepository {
         Task CreateAsync (CheckinLogsModels CheckinLogs);
         Task<IEnumerable<CheckinLogsModels>> ReadAllAsync (string log);
+        Task<UsersModels> FindUserID (string nameid);
 
     }
 }

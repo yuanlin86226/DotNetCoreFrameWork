@@ -10,7 +10,7 @@ namespace Services.IServices
 {
     public interface ICheckinLogsService
     {
-        Task<SaveCheckinLogsResponse> CreateAsync(InsertCheckinLogsResource resource);
+        Task<SaveCheckinLogsResponse> CreateAsync();
         Task<IEnumerable<CheckinLogsResource>> ReadAllAsync(string log);
     }
 }

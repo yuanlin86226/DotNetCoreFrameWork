@@ -38,14 +38,9 @@ namespace Repositories
             return await Logs.ToListAsync();
         }
 
-        public async Task<ActionsModels> ReadOneAsync(int id)
+        public async Task<UsersModels> FindUserID(string nameid)
         {
-            ActionsModels Actioons = await _context.actions
-                .Include(c => c.create_user)
-                .Include(u => u.update_user)
-                .SingleOrDefaultAsync(a => a.action_id == id);
-
-            return Actioons;
+            return await _context.users.Where(p => p.account_number == nameid).FirstAsync();
         }
     }
 }

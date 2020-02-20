@@ -37,7 +37,6 @@ namespace Controllers
         ///     }
         ///
         /// </remarks>
-        /// <param name="resource"></param>
         /// <returns>A newly created CheckinLogs</returns>
         /// <response code="201">Returns the newly created CheckinLogs</response>
         /// <response code="400">If the CheckinLogs is null</response> 
@@ -45,9 +44,9 @@ namespace Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<CheckinLogsModels>> CreateAsync([FromBody] InsertCheckinLogsResource resource)
+        public async Task<ActionResult<CheckinLogsModels>> CreateAsync()
         {
-            var result = await _CheckinLogsService.CreateAsync(resource);
+            var result = await _CheckinLogsService.CreateAsync();
             if (!result.Success)
                return BadRequest(result.Message);
 

@@ -97,6 +97,9 @@ namespace api
             services.AddScoped<ICheckinLogsRepository, CheckinLogsRepository>();
             #endregion
 
+            // 加入HttpContext
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             //加入MVC架構
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(
                 options =>
