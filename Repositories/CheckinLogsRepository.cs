@@ -26,16 +26,10 @@ namespace Repositories
 
         public async Task<IEnumerable<CheckinLogsModels>> ReadAllAsync(string log)
         {
-            var Logs = from a in _context.checkin_logs
-                          select a;
-
-            if(!string.IsNullOrEmpty(log))
-                Logs = Logs.Where(a => a.user_id == log);
-            
-            Logs = Logs.Include(c => c.create_user)
-                        .Include(u => u.update_user);
+            var Logs = _context.checkin_logs.Include(p => p.users)
+                                .ToListAsync();            
                              
-            return await Logs.ToListAsync();
+            return await Logs;
         }
 
         public async Task<UsersModels> FindUserID(string nameid)

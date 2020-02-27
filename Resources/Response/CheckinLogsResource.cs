@@ -15,6 +15,8 @@ namespace Resources.Response
 
         public string ip { get; set; }
 
+        public ForeignCheckInResource users { get; set; }
+
         #endregion
     }
 }
