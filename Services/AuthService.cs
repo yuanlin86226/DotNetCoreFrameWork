@@ -56,6 +56,7 @@ namespace Services
                                          ).Distinct().ToList();
 
                 Result.user_id = Users.user_id;
+                Result.user_name = Users.user_name;
                 Result.role = Users.roles.role;
 
                 Result.Permissions = new PermissionsResource[FunctionNamesCount.Count()];
